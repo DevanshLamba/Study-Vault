@@ -11,6 +11,8 @@
   z-index: 100;
   width: 100vw;
   height: 100vh;
+  /* Use dynamic viewport height for mobile browsers to prevent URL bar jumping */
+  height: 100dvh; 
   overflow: hidden;
   background: #e8eaee; /* matches --env so edge-bleed is invisible */
 

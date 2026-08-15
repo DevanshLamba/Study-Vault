@@ -280,10 +280,68 @@
   100% { background-position: 200% 200%; }
 }
 
-/* ── Mobile adjustments ──────────────────────────────────────────── */
-@media (max-width: 700px) {
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 1024px) {
   .subject-card-inner {
-    height: auto;
-    min-height: 240px;
+    padding: 24px 20px 20px;
+  }
+  .subject-card-shortname {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .subject-card-inner {
+    padding: 20px 16px 16px;
+    height: 100%;
+    min-height: unset;
+  }
+  .subject-card-icon {
+    font-size: 24px;
+  }
+  .subject-card-progress-ring {
+    width: 48px;
+    height: 48px;
+  }
+  .subject-card-shortname {
+    font-size: 18px;
+  }
+  .subject-card-fullname {
+    font-size: 10px;
+  }
+  .subject-card-desc {
+    font-size: 11px;
+    line-height: 1.4;
+    -webkit-line-clamp: 2;
+    margin-bottom: 10px;
+  }
+  .topic-pill {
+    font-size: 9px;
+    padding: 2px 7px;
+  }
+  .subject-card-footer {
+    padding-top: 10px;
+  }
+}
+
+@media (max-width: 400px) {
+  .subject-card-inner {
+    padding: 16px 14px 14px;
+  }
+  .subject-card-shortname {
+    font-size: 16px;
+  }
+  .subject-card-progress-ring {
+    width: 40px;
+    height: 40px;
+  }
+  .subject-card-progress-label {
+    font-size: 9px;
+  }
+  .subject-card-icon {
+    font-size: 20px;
+  }
+  .subject-card-desc {
+    font-size: 10px;
   }
 }

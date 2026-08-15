@@ -28,8 +28,7 @@ export default function CardStage({ subjects, onSelectSubject, hidden }) {
 
   // Configuration - Tighter Orbit Cluster
   const N = subjects.length;
-  const RADIUS_X = 170; // Much tighter horizontal spread (was 400)
-  const RADIUS_Z = 160; // Tighter depth spread (was 250)
+  // RADIUS_X and RADIUS_Z are dynamically calculated in the rAF loop now.
   const BASE_SPEED = 0.025; // 360 deg / ~14 seconds
   const HOVER_SPEED_MULTI = 0.25;
 
@@ -84,6 +83,22 @@ export default function CardStage({ subjects, onSelectSubject, hidden }) {
       }
 
       // 3. Update DOM nodes natively for 60fps performance
+      
+      // Calculate dynamic radius based on window width
+      const ww = window.innerWidth;
+      let dynRadiusX = 170;
+      let dynRadiusZ = 160;
+      if (ww < 400) {
+        dynRadiusX = 70;
+        dynRadiusZ = 60;
+      } else if (ww < 768) {
+        dynRadiusX = 100;
+        dynRadiusZ = 90;
+      } else if (ww < 1024) {
+        dynRadiusX = 140;
+        dynRadiusZ = 130;
+      }
+
       for (let i = 0; i < N; i++) {
         const card = cardRefs.current[i];
         if (!card) continue;
@@ -96,11 +111,11 @@ export default function CardStage({ subjects, onSelectSubject, hidden }) {
         const rad = theta * (Math.PI / 180);
         
         // Orbital positions
-        const x = Math.sin(rad) * RADIUS_X;
-        const z = Math.cos(rad) * RADIUS_Z;
+        const x = Math.sin(rad) * dynRadiusX;
+        const z = Math.cos(rad) * dynRadiusZ;
         
         // Normalized depth: 0 (back) to 1 (front)
-        const zNorm = (z + RADIUS_Z) / (2 * RADIUS_Z); 
+        const zNorm = (z + dynRadiusZ) / (2 * dynRadiusZ); 
         
         // Visual hierarchy based on depth - Optically scaled up ~12%
         // Max scale (front) = 1.12, Min scale (back) = 0.784
