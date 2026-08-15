@@ -1,0 +1,289 @@
+/* SubjectCard.css */
+
+/* ── Card Root ───────────────────────────────────────────────────── */
+.subject-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  outline: none;
+  border-radius: var(--radius-lg);
+  transform-style: preserve-3d;
+
+  /* The 3D tilt is applied on the inner, keeping the slot transform stable */
+}
+
+.subject-card:focus-visible .subject-card-inner {
+  box-shadow: var(--shadow-hover), 0 0 0 2px var(--accent);
+}
+
+/* ── Inner — portrait card ───────────────────────────────────────── */
+.subject-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--border);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 32px 24px 24px;
+  transition:
+    transform 0.28s var(--ease-spring),
+    box-shadow 0.28s var(--ease-smooth),
+    border-color 0.28s var(--ease-smooth);
+}
+
+.subject-card--active .subject-card-inner:hover {
+  transform: scale(1.02) translateY(-6px);
+  box-shadow: var(--shadow-hover), var(--glow-accent);
+  border-color: rgba(201,169,110,0.30);
+}
+
+/* ── Accent bar (top) ────────────────────────────────────────────── */
+.subject-card-accent-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+/* ── HUD corner marks ────────────────────────────────────────────── */
+.subject-card-corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  opacity: 0.35;
+  transition: opacity 0.25s;
+}
+
+.subject-card--active .subject-card-corner,
+.subject-card:hover .subject-card-corner {
+  opacity: 0.75;
+}
+
+.subject-card-corner--tl {
+  top: 9px;
+  left: 9px;
+  border-top: 1.5px solid var(--accent);
+  border-left: 1.5px solid var(--accent);
+}
+.subject-card-corner--tr {
+  top: 9px;
+  right: 9px;
+  border-top: 1.5px solid var(--accent);
+  border-right: 1.5px solid var(--accent);
+}
+.subject-card-corner--bl {
+  bottom: 9px;
+  left: 9px;
+  border-bottom: 1.5px solid var(--accent);
+  border-left: 1.5px solid var(--accent);
+}
+.subject-card-corner--br {
+  bottom: 9px;
+  right: 9px;
+  border-bottom: 1.5px solid var(--accent);
+  border-right: 1.5px solid var(--accent);
+}
+
+/* ── Header (icon + ring) ────────────────────────────────────────── */
+.subject-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.subject-card-icon {
+  font-size: 28px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 6px var(--accent-bg));
+  transition: transform 0.3s var(--ease-spring);
+  color: var(--accent);
+}
+
+.subject-card--active .subject-card-icon,
+.subject-card:hover .subject-card-icon {
+  transform: scale(1.15) translateY(-2px);
+}
+
+/* Progress ring */
+.subject-card-progress-ring {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+}
+
+.progress-arc {
+  transition: stroke-dashoffset 0.8s var(--ease-out) 0.3s;
+}
+
+.subject-card-progress-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
+/* ── Names ───────────────────────────────────────────────────────── */
+.subject-card-names {
+  margin-bottom: 8px;
+}
+
+.subject-card-shortname {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  line-height: 1.15;
+  margin-bottom: 2px;
+}
+
+.subject-card-fullname {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+  font-weight: 400;
+}
+
+/* ── Description ─────────────────────────────────────────────────── */
+.subject-card-desc {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin-bottom: 14px;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Topic pills ─────────────────────────────────────────────────── */
+.subject-card-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 14px;
+}
+
+.topic-pill {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: 20px;
+  background: var(--surface-2);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  transition: background 0.2s, color 0.2s;
+}
+
+.topic-pill--done {
+  background: var(--accent-bg);
+  color: var(--accent-dark);
+  border-color: rgba(201,169,110,0.25);
+}
+
+.topic-pill-check {
+  font-size: 9px;
+  color: var(--accent);
+}
+
+.topic-pill--more {
+  color: var(--text-muted);
+  background: transparent;
+  border-style: dashed;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────── */
+.subject-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.subject-card-stat {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+}
+
+.subject-card-cta {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.22s, transform 0.22s var(--ease-spring);
+}
+
+.subject-card--active .subject-card-cta,
+.subject-card:hover .subject-card-cta {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Shimmer overlay ─────────────────────────────────────────────── */
+.subject-card-shimmer {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.5) 50%,
+    rgba(255,255,255,0) 100%
+  );
+  background-size: 200% 200%;
+  background-position: -100% -100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.subject-card--active .subject-card-shimmer,
+.subject-card:hover .subject-card-shimmer {
+  opacity: 1;
+  animation: shimmer 1.6s var(--ease-smooth) infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: -100% -100%; }
+  100% { background-position: 200% 200%; }
+}
+
+/* ── Mobile adjustments ──────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .subject-card-inner {
+    height: auto;
+    min-height: 240px;
+  }
+}
